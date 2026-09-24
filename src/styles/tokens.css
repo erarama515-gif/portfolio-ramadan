@@ -1,0 +1,43 @@
+/* ─────────────────────────────────────────────────────────────
+   Design tokens · dark premium (see docs/PORTFOLIO_STRUCTURE.md §0.3)
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Surface */
+  --ink: #0A0A0B;
+  --ink-2: #111114;
+  --ink-3: #17171B;
+
+  /* Borders */
+  --line: #22222A;
+  --line-2: #2E2E38;
+
+  /* Foreground */
+  --fg: #ECECEE;
+  --fg-2: #A8A8B3;
+  --fg-3: #6C6C79;
+
+  /* Accents */
+  --copper: #C87F5A;
+  --copper-2: #E39A73;
+  --moss: #6B8F71;
+
+  /* Signals */
+  --danger: #C85A5A;
+  --success: #7AAE84;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter-mobile: 24px;
+  --gutter-desktop: 48px;
+  --section-y-mobile: 80px;
+  --section-y-desktop: 120px;
+}
