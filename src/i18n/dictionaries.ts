@@ -67,6 +67,49 @@ export interface Dict {
     readCta: string
     projects: Project[]
   }
+  think: {
+    eyebrow: string
+    figure: string
+    titlePre: string
+    titleItalic: string
+    titlePost: string
+    kicker: string
+    nodes: { label: string; note: string }[]
+    principle: string
+  }
+  process: {
+    eyebrow: string
+    figure: string
+    titlePre: string
+    titleItalic: string
+    titlePost: string
+    steps: { num: string; title: string; body: string }[]
+  }
+  numbers: {
+    eyebrow: string
+    figure: string
+    titlePre: string
+    titleItalic: string
+    titlePost: string
+    stats: { value: string; label: string; sub: string }[]
+  }
+  contact: {
+    eyebrow: string
+    figure: string
+    titlePre: string
+    titleItalic: string
+    titlePost: string
+    kicker: string
+    cta: string
+    email: string
+    meta: string
+    quietMeta: string
+  }
+  footer: {
+    role: string
+    domains: string
+    copy: string
+  }
   langToggle: string
 }
 
@@ -255,6 +298,71 @@ export const dict: Record<Locale, Dict> = {
       readCta: 'Read case study',
       projects: projectsEN,
     },
+    think: {
+      eyebrow: 'How I Think About Systems',
+      figure: 'Fig. 03',
+      titlePre: 'Every system starts with the',
+      titleItalic: 'business workflow',
+      titlePost: ' — not the technology.',
+      kicker:
+        'The stack is a side effect of the decisions above it. If the operations are unclear, no framework will save the product.',
+      nodes: [
+        { label: 'Business Requirements', note: 'What the operation must do' },
+        { label: 'System Architecture',   note: 'Boundaries, data model, contracts' },
+        { label: 'Frontend',              note: 'Where humans meet the system' },
+        { label: 'Backend',               note: 'The rules of the business, in code' },
+        { label: 'Database',              note: 'The single source of truth' },
+        { label: 'Automation',            note: 'Removing the humans from the loops' },
+        { label: 'AI',                    note: 'Where inference beats scripting' },
+      ],
+      principle:
+        'Technology serves the operation. When the operation is understood, the stack picks itself.',
+    },
+    process: {
+      eyebrow: 'Process',
+      figure: 'Fig. 04',
+      titlePre: 'From idea to',
+      titleItalic: 'production',
+      titlePost: '.',
+      steps: [
+        { num: '01', title: 'Discover', body: 'Understand the business, its constraints, and its people.' },
+        { num: '02', title: 'Architect', body: 'Design the system, data model, and integration points.' },
+        { num: '03', title: 'Build', body: 'Develop the product with production quality from day one.' },
+        { num: '04', title: 'Automate', body: 'Connect workflows, APIs, and AI to remove manual work.' },
+        { num: '05', title: 'Test', body: 'Validate the system under real business conditions.' },
+        { num: '06', title: 'Scale', body: 'Prepare for growth — infrastructure, monitoring, docs.' },
+      ],
+    },
+    numbers: {
+      eyebrow: 'By the Numbers',
+      figure: 'Fig. 05',
+      titlePre: 'Six years,',
+      titleItalic: 'measured',
+      titlePost: '.',
+      stats: [
+        { value: '300+', label: 'Projects', sub: 'shipped since 2018' },
+        { value: '6+',   label: 'Years',    sub: 'building digital systems' },
+        { value: '12',   label: 'Systems',  sub: 'in production now' },
+        { value: '47',   label: 'Flows',    sub: 'automations running daily' },
+      ],
+    },
+    contact: {
+      eyebrow: 'Contact',
+      figure: 'Fig. 06',
+      titlePre: 'Have a business problem worth',
+      titleItalic: 'solving',
+      titlePost: '?',
+      kicker: "Let's turn it into a system.",
+      cta: 'Start a conversation',
+      email: 'eslaaaramaa@gmail.com',
+      meta: 'Business inquiry · reply within 24h',
+      quietMeta: 'Cairo · Egypt · GMT+2',
+    },
+    footer: {
+      role: 'Digital Business Architect',
+      domains: 'Web · ERP · SaaS · AI · Automation',
+      copy: '© 2026 Eslam Ramadan · All rights reserved',
+    },
     langToggle: 'AR',
   },
   ar: {
@@ -316,6 +424,71 @@ export const dict: Record<Locale, Dict> = {
         'خمسة مشاريع، اختيرت بسبب الفكر ورائها — مش لمعان السطح.',
       readCta: 'اقرأ دراسة الحالة',
       projects: projectsAR,
+    },
+    think: {
+      eyebrow: 'كيف أفكّر في الأنظمة',
+      figure: 'شكل ٠٣',
+      titlePre: 'كل نظام يبدأ من',
+      titleItalic: 'سير عمل الشركة',
+      titlePost: ' — مش من التكنولوجيا.',
+      kicker:
+        'الـ stack نتيجة للقرارات اللي فوقيه. لو العمليات مش واضحة، مفيش framework هينقذ المنتج.',
+      nodes: [
+        { label: 'متطلّبات الأعمال', note: 'اللي المفروض النظام يعمله' },
+        { label: 'معمار النظام',    note: 'الحدود، نموذج البيانات، الاتفاقيات' },
+        { label: 'الواجهة',        note: 'حيث يلتقي الإنسان بالنظام' },
+        { label: 'الخلفية',         note: 'قواعد العمل مترجمة كوداً' },
+        { label: 'قاعدة البيانات', note: 'المصدر الوحيد للحقيقة' },
+        { label: 'الأتمتة',        note: 'إخراج الإنسان من الحلقات' },
+        { label: 'الذكاء الاصطناعي', note: 'حيث يتفوّق الاستدلال على السكربت' },
+      ],
+      principle:
+        'التكنولوجيا تخدم العملية. لمّا العملية مفهومة، الـ stack يختار نفسه.',
+    },
+    process: {
+      eyebrow: 'المنهجية',
+      figure: 'شكل ٠٤',
+      titlePre: 'من الفكرة إلى',
+      titleItalic: 'الإنتاج',
+      titlePost: '.',
+      steps: [
+        { num: '٠١', title: 'اكتشف', body: 'افهم الشركة، قيودها، وأصحابها.' },
+        { num: '٠٢', title: 'صمّم', body: 'اصنع النظام، نموذج البيانات، ونقاط التكامل.' },
+        { num: '٠٣', title: 'ابنِ', body: 'طوّر المنتج بجودة إنتاج من اليوم الأول.' },
+        { num: '٠٤', title: 'أتمتة', body: 'اربط سير العمل والـ APIs والذكاء لإزالة اليدوي.' },
+        { num: '٠٥', title: 'اختبر', body: 'اختبر النظام تحت ظروف الأعمال الحقيقية.' },
+        { num: '٠٦', title: 'وسّع', body: 'استعدّ للنموّ — بنية، مراقبة، توثيق.' },
+      ],
+    },
+    numbers: {
+      eyebrow: 'بالأرقام',
+      figure: 'شكل ٠٥',
+      titlePre: 'ستّ سنوات،',
+      titleItalic: 'مقاسة',
+      titlePost: '.',
+      stats: [
+        { value: '‎+٣٠٠', label: 'مشروع',   sub: 'شُحن منذ ٢٠١٨' },
+        { value: '‎+٦',   label: 'سنوات',   sub: 'في بناء الأنظمة الرقمية' },
+        { value: '١٢',    label: 'نظام',    sub: 'قيد التشغيل حالياً' },
+        { value: '٤٧',    label: 'أتمتة',   sub: 'شغّالة يومياً' },
+      ],
+    },
+    contact: {
+      eyebrow: 'تواصل',
+      figure: 'شكل ٠٦',
+      titlePre: 'عندك مشكلة أعمال تستحق',
+      titleItalic: 'حلاً',
+      titlePost: '؟',
+      kicker: 'خلّينا نحوّلها إلى نظام.',
+      cta: 'ابدأ محادثة',
+      email: 'eslaaaramaa@gmail.com',
+      meta: 'استفسار أعمال · الرد خلال ٢٤ ساعة',
+      quietMeta: 'القاهرة · مصر · GMT+2',
+    },
+    footer: {
+      role: 'مهندس أنظمة رقمية للأعمال',
+      domains: 'Web · ERP · SaaS · AI · Automation',
+      copy: '© ٢٠٢٦ إسلام رمضان · جميع الحقوق محفوظة',
     },
     langToggle: 'EN',
   },
