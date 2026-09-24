@@ -706,4 +706,119 @@ Once §7 is answered, the very next tool call is **Phase 1**: scaffold `tokens.c
 
 ---
 
-*End of structure. Everything below the line is intentionally left for iteration.*
+*End of original structure. See Addendum below for confirmed decisions.*
+
+---
+
+## 9 · Addendum · Confirmed Decisions (2026-09-24)
+
+The following overrides earlier sections where noted.
+
+### 9.1 Stack (overrides §0.2)
+**Payload CMS 3.0 + Next.js 14 (unified codebase).**
+- Single Next.js repo hosting both the marketing site and the Payload admin at `/admin`.
+- TypeScript-first across all layers.
+- PostgreSQL for storage (Neon or Vercel Postgres for hosting).
+- Media uploads (screenshots) handled natively by Payload → stored in cloud storage (S3-compatible or Vercel Blob).
+- Deployed as a single Next.js app on Vercel.
+- The old `backend/` (FastAPI) is archived to `_legacy_backend/` and no longer deployed.
+
+### 9.2 Contact (updates §2.13)
+- Real email: **`eslaaaramaa@gmail.com`**
+- Contact form submissions persist in Payload's `ContactMessages` collection AND send a copy to this email (Resend or Nodemailer via a Server Action).
+- Calendly integration: deferred to v2 (not asked for now).
+
+### 9.3 Numbers (updates §2.10)
+Numbers are approximate. Wording softened to avoid claiming exactness:
+- `300+ Projects` → keep as-is (the plus makes it honest).
+- `6+ Years` → keep as-is.
+- All numbers editable from the admin panel, so the site owner can update anytime without a deploy.
+
+### 9.4 Book Section (updates §7 · point 4)
+**Removed entirely.** No `/book` route, no Beyond Systems strip, no footer link.
+- The `Book` collection is not created in Payload.
+- The old `BookSection.tsx` is deleted, not archived.
+
+### 9.5 Social Links (updates §2.12)
+Social handles are **editable from the admin panel** (Payload `SocialLinks` collection). The site owner will populate them himself. In the initial deploy, the section renders an empty state ("Social links coming soon") until at least one link is added.
+
+### 9.6 Screenshots (updates §2.5)
+Project screenshots are uploaded via the Payload admin (`Media` collection, attached to each `Project`).
+- Until real screenshots are uploaded, cards render a designed SVG placeholder in the system-window style (§2.2.1) — never blank, never a broken image.
+- The placeholder is a component: `<ProjectPlaceholder projectName={…} />`.
+
+### 9.7 Admin Panel Collections (Payload schema)
+
+```
+User            — the site owner login (single admin for v1)
+Profile         — name, title, tagline, bio, headshot (single global)
+Hero            — headline, subline, meta strip items, CTA labels/links (single global)
+Projects        — array: title, slug, subtitle, blurb (EN + AR), tags,
+                  status (LIVE / PRIVATE / INFRASTRUCTURE), tech chips,
+                  screenshots (multi), case study MDX content,
+                  order_index, featured, published
+Services        — the 6 "What I Build" cards (EN + AR)
+Numbers         — array of stat tiles: value, label (EN + AR)
+Process         — array of the 6 process steps (EN + AR)
+Philosophy      — array of 3 principles (EN + AR)
+TechStack       — grouped tech items (frontend / backend / data / automation / AI)
+SocialLinks     — array: platform, url, icon slug, order_index
+ContactMessages — form submissions (read-only in admin)
+Media           — file uploads (screenshots, OG images)
+Settings        — SEO defaults, primary color, feature flags (single global)
+```
+
+All text fields are `localized: true` for EN/AR. Payload's built-in i18n handles this out of the box.
+
+### 9.8 Repository Layout (overrides §4)
+
+```
+/                             ← root of the Next.js + Payload app
+├─ src/
+│  ├─ app/
+│  │  ├─ (site)/              ← public marketing site
+│  │  │  ├─ layout.tsx
+│  │  │  ├─ page.tsx
+│  │  │  └─ work/[slug]/page.tsx
+│  │  ├─ (payload)/           ← auto-generated Payload admin route group
+│  │  │  ├─ admin/[[...segments]]/page.tsx
+│  │  │  └─ api/[...slug]/route.ts
+│  │  └─ globals.css
+│  ├─ collections/            ← Payload collection definitions
+│  ├─ globals/                ← Payload global definitions (Profile, Hero, Settings)
+│  ├─ components/             ← as per §3
+│  ├─ lib/
+│  ├─ styles/tokens.css
+│  ├─ i18n/
+│  └─ payload.config.ts
+├─ _legacy_backend/           ← old FastAPI code, kept for history, not deployed
+├─ public/
+├─ next.config.ts
+├─ tailwind.config.ts
+├─ package.json
+└─ tsconfig.json
+```
+
+Note: the repo previously had a two-folder split (`frontend/` + `backend/`). Phase 1 flattens the frontend to the root and moves `backend/` → `_legacy_backend/`.
+
+### 9.9 Deploy target
+- Vercel (frontend + admin).
+- Database: Neon Postgres (free tier) or Vercel Postgres.
+- Media storage: Vercel Blob or a free-tier S3 (Cloudflare R2).
+- Env vars: `DATABASE_URI`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`, `RESEND_API_KEY` (for contact email), `BLOB_READ_WRITE_TOKEN`.
+
+### 9.10 Phase 1 · Concrete tasks (starting now)
+
+1. Archive `backend/` → `_legacy_backend/`, delete FastAPI-specific top-level files (`render.yaml`, `netlify.toml`, `dir`, `git`).
+2. Move current `frontend/` contents up to repo root; delete `BookSection.tsx` and any book-related routes.
+3. Update `package.json`: add `payload`, `@payloadcms/next`, `@payloadcms/db-postgres`, `@payloadcms/richtext-lexical`, `@payloadcms/storage-vercel-blob`, `sharp`, `resend`, plus keep `next`, `react`, `framer-motion`, `lucide-react`.
+4. Create `src/payload.config.ts` with the collections listed in §9.7 (stubs; localization enabled).
+5. Create `src/styles/tokens.css` with the design tokens from §0.3.
+6. Rebuild `tailwind.config.ts` to map to the CSS variables.
+7. Register fonts via `next/font`: Inter, JetBrains Mono, IBM Plex Sans Arabic.
+8. Build the base primitives: `Container`, `Button`, `Chip`, `Eyebrow`, `SectionHeader`, `StatusPill`.
+9. Wire i18n context + `EN | AR` toggle in the site layout.
+10. Commit and push. Ship a screenshot of a stub `/` route to prove the foundation renders.
+
+Phase 2 (Hero + About + Navbar) follows immediately after Phase 1 is reviewed.
+
