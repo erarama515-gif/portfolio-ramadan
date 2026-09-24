@@ -1,14 +1,33 @@
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { IBM_Plex_Sans_Arabic } from 'next/font/google'
+import {
+  Instrument_Serif,
+  IBM_Plex_Sans_Arabic,
+  Amiri,
+} from 'next/font/google'
 import { LocaleProvider } from '@/i18n/LocaleContext'
 import './globals.css'
+
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+})
 
 const arabic = IBM_Plex_Sans_Arabic({
   subsets: ['arabic'],
   weight: ['300', '400', '500', '600'],
   variable: '--font-arabic',
+  display: 'swap',
+})
+
+const arabicSerif = Amiri({
+  subsets: ['arabic'],
+  weight: ['400', '700'],
+  variable: '--font-arabic-serif',
   display: 'swap',
 })
 
@@ -38,7 +57,7 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${arabic.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${serif.variable} ${arabic.variable} ${arabicSerif.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-bg text-fg antialiased selection:bg-accent selection:text-bg">

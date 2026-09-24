@@ -1,40 +1,52 @@
 /* ─────────────────────────────────────────────────────────────
-   Direction · Rauno × Linear
-   Dark precision · cool charcoal · one warm coral accent
+   Precision Warmth · a blend of 8 references
+   Rauno × Linear × Vercel base, warmed with Stripe/Anthropic
+   accents, punctuated by Instrument Serif italic moments.
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Surface (cool, near-black, warm-neutral touch) */
-  --bg: #0B0B0D;             /* canvas */
-  --surface: #101013;        /* elevated panels, cards */
-  --surface-2: #16161B;      /* nested surfaces */
-  --surface-3: #1D1D24;      /* hover states */
+  /* Surface — near-black cool, warm-neutral undertone */
+  --bg: #0A0A0C;
+  --surface: #101014;
+  --surface-2: #14141A;
+  --surface-3: #1B1B22;
 
-  /* Rules (hairlines, dividers) */
-  --line: #22222A;           /* base */
-  --line-2: #30303A;         /* stronger */
-  --line-3: #45454F;         /* very visible */
+  /* Rules */
+  --line: #22222A;
+  --line-2: #30303A;
+  --line-3: #45454F;
 
-  /* Foreground */
-  --fg: #F1F1F3;             /* primary text */
-  --fg-2: #B4B4BE;           /* secondary */
-  --fg-3: #74747E;           /* muted */
-  --fg-4: #4E4E58;           /* faintest */
+  /* Foreground — slightly warm ivory, echoes Anthropic's fg */
+  --fg: #EFEBE5;
+  --fg-2: #B4B1AA;
+  --fg-3: #7A7770;
+  --fg-4: #4E4C48;
 
-  /* Signature accent — warm coral */
-  --accent: #FF6A3D;
-  --accent-2: #FF8A63;
-  --accent-glow: rgba(255, 106, 61, 0.14);
+  /* Single warm accent — bridges Stripe coral, Anthropic terracotta,
+     and Rauno's warm details. Copper-peach, not dev-portfolio orange. */
+  --accent: #F26D50;
+  --accent-2: #FF8B70;
+  --accent-glow: rgba(242, 109, 80, 0.14);
 
-  /* System signal colors */
-  --signal-live: #2FD57D;    /* live green (small use) */
-  --signal-warn: #F4B942;
-  --signal-idle: #74747E;
+  /* Secondary cool accent — for signals only */
+  --cool: #6EBBB8;
+
+  /* Signals */
+  --sig-live: #37CE86;
+  --sig-warn: #E8B44A;
+  --sig-idle: #7A7770;
+
+  /* Iridescent hero gradient stops (Stripe-inspired) */
+  --irid-1: rgba(255, 195, 165, 0.12);   /* peach */
+  --irid-2: rgba(230, 128, 180, 0.10);   /* rose */
+  --irid-3: rgba(150, 138, 220, 0.10);   /* lavender */
+  --irid-4: rgba(110, 187, 184, 0.09);   /* mint */
 
   /* Motion */
   --ease-precise: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  --ease-editorial: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Radii — small, precise */
+  /* Radii */
   --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 6px;

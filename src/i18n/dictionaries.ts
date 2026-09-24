@@ -10,13 +10,16 @@ export interface Dict {
     start: string
   }
   hero: {
-    tag: string           // "◇ Digital Business Architect"
-    firstName: string
-    lastName: string
+    tag: string
+    // Headline split into 3 parts: pre + italic + post
+    // e.g. "I build digital " + "systems" (italic) + "."
+    headPre: string
+    headItalic: string
+    headPost: string
     subline: string
     ctaWork: string
     ctaContact: string
-    metaLine: string      // small mono line under CTAs
+    metaLine: string
   }
   panel: {
     title: string
@@ -44,10 +47,11 @@ export const dict: Record<Locale, Dict> = {
     },
     hero: {
       tag: 'Digital Business Architect',
-      firstName: 'Eslam',
-      lastName: 'Ramadan',
+      headPre: 'I build digital ',
+      headItalic: 'systems',
+      headPost: '.',
       subline:
-        'I build digital products, business systems and intelligent automations that turn operations into scalable software.',
+        'Business problems, turned into scalable software. ERP, POS, SaaS products and AI-powered automation, built around how the work actually runs.',
       ctaWork: 'View selected work',
       ctaContact: 'Start a project',
       metaLine:
@@ -87,10 +91,11 @@ export const dict: Record<Locale, Dict> = {
     },
     hero: {
       tag: 'مهندس أنظمة رقمية للأعمال',
-      firstName: 'إسلام',
-      lastName: 'رمضان',
+      headPre: 'أبني ',
+      headItalic: 'أنظمة',
+      headPost: ' رقمية.',
       subline:
-        'أبني منتجات رقمية، وأنظمة أعمال، وأتمتة ذكية بتحوّل العمليات لبرمجيات قابلة للتوسّع.',
+        'أحوّل مشاكل الأعمال إلى برمجيات قابلة للتوسّع. ERP و POS و منتجات SaaS وأتمتة مدعومة بـ AI — مبنية على طريقة عمل الشركة الحقيقية.',
       ctaWork: 'اعرض الأعمال المختارة',
       ctaContact: 'ابدأ مشروع',
       metaLine:

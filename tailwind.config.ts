@@ -31,15 +31,18 @@ const config: Config = {
           2: 'var(--accent-2)',
           glow: 'var(--accent-glow)',
         },
-        'sig-live': 'var(--signal-live)',
-        'sig-warn': 'var(--signal-warn)',
-        'sig-idle': 'var(--signal-idle)',
+        cool: 'var(--cool)',
+        'sig-live': 'var(--sig-live)',
+        'sig-warn': 'var(--sig-warn)',
+        'sig-idle': 'var(--sig-idle)',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         display: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
         arabic: ['var(--font-arabic)', 'system-ui', 'sans-serif'],
+        arabicSerif: ['var(--font-arabic-serif)', 'Georgia', 'serif'],
       },
       letterSpacing: {
         tightest: '-0.04em',
@@ -58,7 +61,15 @@ const config: Config = {
       boxShadow: {
         panel:
           '0 0 0 1px var(--line), 0 1px 0 0 rgba(255,255,255,0.02) inset, 0 30px 60px -20px rgba(0,0,0,0.6)',
-        'accent-ring': '0 0 0 1px var(--accent)',
+        'panel-glow':
+          '0 0 0 1px var(--line-2), 0 40px 80px -20px rgba(242, 109, 80, 0.15), 0 1px 0 0 rgba(255,255,255,0.03) inset',
+      },
+      backgroundImage: {
+        iridescent:
+          'radial-gradient(ellipse 900px 500px at 15% 20%, var(--irid-1), transparent 55%),' +
+          'radial-gradient(ellipse 800px 500px at 85% 0%, var(--irid-2), transparent 55%),' +
+          'radial-gradient(ellipse 700px 600px at 60% 60%, var(--irid-3), transparent 60%),' +
+          'radial-gradient(ellipse 700px 600px at 100% 100%, var(--irid-4), transparent 60%)',
       },
     },
   },

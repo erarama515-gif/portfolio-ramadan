@@ -8,11 +8,18 @@ import { cn } from '@/lib/cn'
 const EASE = [0.16, 1, 0.3, 1] as const
 
 /**
- * Hero — precision. Left: identity + CTAs. Right: a live-looking
- * system panel that is the *practice* itself.
+ * Hero — Precision Warmth blend.
  *
- * Motion budget: one entrance stagger + one pulsing live-dot
- * (in LiveSystemPanel). Nothing idle bounces.
+ * References borrowed (surgically, not stacked):
+ *   • Rauno: monospace details, kbd hints, hairlines, ⌘K
+ *   • Linear: ambient mesh gradient (via body::before), perspective mock
+ *   • Vercel: Geist type, geometric triangle mark
+ *   • Stripe: iridescent hero atmosphere (subtle, felt not seen)
+ *   • Anthropic: italic serif accent on ONE word inside sans headline
+ *   • Emil: no chrome, no icons
+ *
+ * Motion budget: one entrance stagger + one live pulse + one log
+ * rotation. Nothing idle bounces.
  */
 export function Hero() {
   const { t } = useLocale()
@@ -31,7 +38,18 @@ export function Hero() {
             }}
             className="col-span-12 lg:col-span-7"
           >
-            {/* Tag */}
+            {/* Vercel-borrow: triangle mark + studio stamp */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } } }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <span className="vercel-mark text-accent" aria-hidden />
+              <span className="cap">ER · STUDIO</span>
+              <span className="h-3 w-px bg-line-2" />
+              <span className="cap">EST. MMXVIII</span>
+            </motion.div>
+
+            {/* Tag pill */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
             >
@@ -41,16 +59,14 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* Name — massive precise sans */}
+            {/* Headline — Anthropic borrow: sans + italic serif accent word */}
             <motion.h1
               variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }}
-              className="h-display text-fg mb-8"
+              className="h-display text-fg mb-8 [text-wrap:balance]"
             >
-              <span className="block">{t.hero.firstName}</span>
-              <span className="block">
-                {t.hero.lastName}
-                <span className="text-accent">.</span>
-              </span>
+              <span>{t.hero.headPre}</span>
+              <span className="h-display-italic">{t.hero.headItalic}</span>
+              <span>{t.hero.headPost}</span>
             </motion.h1>
 
             {/* Subline */}
@@ -61,7 +77,7 @@ export function Hero() {
               {t.hero.subline}
             </motion.p>
 
-            {/* CTAs — precision buttons with keyboard hints */}
+            {/* CTAs — precision buttons with kbd hints */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
               className="flex flex-wrap items-center gap-3 mb-10"
@@ -100,19 +116,28 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* — Right column · Live panel — */}
+          {/* — Right column · Live panel with Linear-borrow perspective — */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
             className="col-span-12 lg:col-span-5 lg:pl-4"
+            style={{ perspective: '1600px' }}
           >
-            <LiveSystemPanel />
+            <div
+              style={{
+                transform: 'rotateY(-3deg) rotateX(2deg)',
+                transformOrigin: 'left center',
+              }}
+              className="rtl:[transform:rotateY(3deg)_rotateX(2deg)] rtl:origin-right"
+            >
+              <LiveSystemPanel />
+            </div>
           </motion.div>
         </div>
       </Container>
 
-      {/* Footer strip — the OS status bar */}
+      {/* Footer status strip */}
       <div className="border-t border-line">
         <Container className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:h-10 py-2 md:py-0">
           <div className="flex items-center gap-4">

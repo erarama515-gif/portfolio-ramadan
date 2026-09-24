@@ -29,10 +29,7 @@
     color: var(--bg);
   }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb {
     background: var(--line-2);
@@ -45,20 +42,21 @@
     font-family: var(--font-arabic), system-ui, sans-serif;
   }
 
-  /* Tabular numerals wherever we align columns of numbers */
   .tabular, table, [data-tabular] {
     font-variant-numeric: tabular-nums;
   }
 
-  /* Global background — very subtle mesh */
+  /* Ambient iridescence — the Stripe borrowing. Very quiet: felt, not seen. */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -1;
-    background:
-      radial-gradient(ellipse 800px 400px at 15% 0%, var(--accent-glow), transparent 60%),
-      radial-gradient(ellipse 900px 500px at 100% 100%, rgba(46, 100, 255, 0.05), transparent 60%);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% 12%, var(--irid-1), transparent 55%),
+      radial-gradient(ellipse 800px 500px at 85% 0%, var(--irid-2), transparent 55%),
+      radial-gradient(ellipse 700px 600px at 65% 48%, var(--irid-3), transparent 60%),
+      radial-gradient(ellipse 700px 600px at 100% 70%, var(--irid-4), transparent 60%);
     pointer-events: none;
   }
 }
@@ -71,20 +69,14 @@
     margin-inline: auto;
     padding-inline: var(--gutter-mobile);
   }
-  @media (min-width: 768px) {
-    .container-x { padding-inline: var(--gutter-desktop); }
-  }
+  @media (min-width: 768px) { .container-x { padding-inline: var(--gutter-desktop); } }
 
-  .section-y {
-    padding-block: var(--section-y-mobile);
-  }
-  @media (min-width: 768px) {
-    .section-y { padding-block: var(--section-y-desktop); }
-  }
+  .section-y { padding-block: var(--section-y-mobile); }
+  @media (min-width: 768px) { .section-y { padding-block: var(--section-y-desktop); } }
 
-  /* ── Type primitives — precision, tight, technical ── */
+  /* ── Type primitives ── */
 
-  /* Micro-cap monospace — the label everywhere */
+  /* Monospace uppercase micro-caps */
   .cap {
     font-family: var(--font-geist-mono), ui-monospace, monospace;
     font-size: 11px;
@@ -94,8 +86,6 @@
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
-
-  /* Micro-tag — used for pills, badges */
   .cap-fg {
     font-family: var(--font-geist-mono), ui-monospace, monospace;
     font-size: 11px;
@@ -106,13 +96,27 @@
     line-height: 1;
   }
 
-  /* Massive display headline */
+  /* Massive display headline — Geist sans, precision */
   .h-display {
     font-family: var(--font-geist-sans), system-ui, sans-serif;
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(3rem, 8vw, 6.25rem);
     line-height: 0.98;
     letter-spacing: -0.04em;
     font-weight: 500;
+  }
+
+  /* The italic serif word — the Anthropic/Browser Company borrow.
+     Used for ONE word inside an otherwise sans headline. */
+  .h-display-italic {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    color: var(--accent);
+  }
+  :root[dir='rtl'] .h-display-italic {
+    font-family: var(--font-arabic-serif), Georgia, serif;
+    font-style: normal;
   }
 
   /* Section title */
@@ -123,16 +127,26 @@
     letter-spacing: -0.028em;
     font-weight: 500;
   }
+  .h-section-italic {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  :root[dir='rtl'] .h-section-italic {
+    font-family: var(--font-arabic-serif), Georgia, serif;
+    font-style: normal;
+  }
 
   /* Lead paragraph */
   .lead {
     font-size: clamp(1rem, 1.2vw, 1.125rem);
     line-height: 1.55;
     color: var(--fg-2);
-    max-width: 42ch;
+    max-width: 44ch;
   }
 
-  /* Prose body */
   .prose-precise {
     font-size: 15px;
     line-height: 1.6;
@@ -141,23 +155,19 @@
   }
   .prose-precise > p + p { margin-top: 1em; }
 
-  /* Hairline dividers */
+  /* Hairline rules — 0.5px on retina */
   .hairline {
     height: 1px;
     background: var(--line);
     border: 0;
   }
-  .hairline-2 {
-    height: 1px;
-    background: var(--line-2);
-    border: 0;
-  }
+  .hairline-2 { height: 1px; background: var(--line-2); border: 0; }
   @media (min-resolution: 2dppx) {
     .hairline { height: 0.5px; }
     .hairline-2 { height: 0.5px; }
   }
 
-  /* Kbd — keyboard hint pill (very Rauno) */
+  /* Kbd — Rauno-borrow keyboard hint pill */
   .kbd {
     display: inline-flex;
     align-items: center;
@@ -176,14 +186,21 @@
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.4);
   }
 
-  /* Pulse ring animation for live indicators (single, subtle) */
+  /* Live pulse ring */
   @keyframes pulse-ring {
-    0%   { box-shadow: 0 0 0 0 rgba(47, 213, 125, 0.55); }
-    70%  { box-shadow: 0 0 0 10px rgba(47, 213, 125, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(47, 213, 125, 0); }
+    0%   { box-shadow: 0 0 0 0 rgba(55, 206, 134, 0.55); }
+    70%  { box-shadow: 0 0 0 10px rgba(55, 206, 134, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(55, 206, 134, 0); }
   }
-  .pulse-live {
-    animation: pulse-ring 2.4s ease-out infinite;
+  .pulse-live { animation: pulse-ring 2.4s ease-out infinite; }
+
+  /* The Vercel-borrow triangle mark */
+  .vercel-mark {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 10px solid currentColor;
   }
 }
 
