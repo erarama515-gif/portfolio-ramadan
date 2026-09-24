@@ -14,6 +14,7 @@ export function LiveSystemPanel({ className }: { className?: string }) {
   const { t, locale } = useLocale()
   const { panel } = t
   const [tick, setTick] = useState(0)
+  const [time, setTime] = useState<string | null>(null)
 
   // Rotates through the log lines every 3.5s (one animation, editorial).
   useEffect(() => {
@@ -21,12 +22,18 @@ export function LiveSystemPanel({ className }: { className?: string }) {
     return () => clearInterval(id)
   }, [])
 
-  const now = new Date()
-  const time = now.toLocaleTimeString(locale === 'ar' ? 'ar-EG' : 'en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
+  // Client-only clock — avoids SSR/CSR hydration mismatch on the time.
+  useEffect(() => {
+    const format = () =>
+      new Date().toLocaleTimeString(locale === 'ar' ? 'ar-EG' : 'en-GB', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      })
+    setTime(format())
+    const id = setInterval(() => setTime(format()), 30_000)
+    return () => clearInterval(id)
+  }, [locale])
 
   return (
     <div
@@ -84,7 +91,12 @@ export function LiveSystemPanel({ className }: { className?: string }) {
       <div className="p-4 md:p-5">
         <div className="flex items-center justify-between mb-3">
           <span className="cap">— {panel.logsLabel}</span>
-          <span className="cap text-fg-4 tabular">{time}</span>
+          <span
+            className="cap text-fg-4 tabular"
+            suppressHydrationWarning
+          >
+            {time ?? '——:——'}
+          </span>
         </div>
         <ul className="space-y-2">
           {panel.logs.map((log, i) => {

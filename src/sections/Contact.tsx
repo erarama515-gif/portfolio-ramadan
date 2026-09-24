@@ -111,14 +111,7 @@ export function Contact() {
               </button>
 
               <span className="cap text-fg-4">
-                {state === 'error' && errorMsg
-                  ? `— ${errorMsg}`
-                  : (
-                    <>
-                      or press <span className="kbd">⌘</span>
-                      <span className="kbd">↵</span> to send
-                    </>
-                  )}
+                {state === 'error' && errorMsg && `— ${errorMsg}`}
               </span>
             </div>
           </form>

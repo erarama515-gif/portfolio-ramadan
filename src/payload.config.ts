@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
 
@@ -21,6 +22,18 @@ import { Settings } from './globals/Settings'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+/** Auto-select the adapter from DATABASE_URI. postgres:// or postgresql://
+ *  routes to Postgres (production), everything else falls back to SQLite. */
+function selectDatabaseAdapter() {
+  const uri = process.env.DATABASE_URI || 'file:./data/payload.sqlite'
+  if (uri.startsWith('postgres://') || uri.startsWith('postgresql://')) {
+    return postgresAdapter({
+      pool: { connectionString: uri },
+    })
+  }
+  return sqliteAdapter({ client: { url: uri } })
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -35,11 +48,7 @@ export default buildConfig({
 
   editor: lexicalEditor(),
 
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URI || 'file:./data/payload.sqlite',
-    },
-  }),
+  db: selectDatabaseAdapter(),
 
   localization: {
     locales: ['en', 'ar'],
@@ -47,7 +56,16 @@ export default buildConfig({
     fallback: true,
   },
 
-  secret: process.env.PAYLOAD_SECRET || 'dev-secret-change-me',
+  secret: (() => {
+    if (process.env.PAYLOAD_SECRET) return process.env.PAYLOAD_SECRET
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(
+        'PAYLOAD_SECRET must be set in production. Generate a long random string ' +
+          'and add it to your environment.',
+      )
+    }
+    return 'dev-secret-change-me'
+  })(),
 
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
