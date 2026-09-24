@@ -1,45 +1,49 @@
 /* ─────────────────────────────────────────────────────────────
-   Editorial Ink · design tokens
-   Warm paper, not a dashboard. See docs/PORTFOLIO_STRUCTURE.md
+   Direction · Rauno × Linear
+   Dark precision · cool charcoal · one warm coral accent
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Paper / surfaces (warm, never bright white) */
-  --paper: #F0EAE0;          /* main background — warm bone */
-  --paper-2: #E6DFCF;        /* deeper parchment (footers, insets) */
-  --paper-3: #DCD3BF;        /* deepest cream (hover states, quotes) */
+  /* Surface (cool, near-black, warm-neutral touch) */
+  --bg: #0B0B0D;             /* canvas */
+  --surface: #101013;        /* elevated panels, cards */
+  --surface-2: #16161B;      /* nested surfaces */
+  --surface-3: #1D1D24;      /* hover states */
 
-  /* Ink / text */
-  --ink: #171412;            /* body ink — near-black, warm */
-  --ink-2: #3A342D;          /* secondary ink */
-  --ink-3: #6E655B;          /* faint ink (captions, meta) */
+  /* Rules (hairlines, dividers) */
+  --line: #22222A;           /* base */
+  --line-2: #30303A;         /* stronger */
+  --line-3: #45454F;         /* very visible */
 
-  /* Rules (hairlines) */
-  --rule: #D4CCB8;           /* primary hairline */
-  --rule-2: #C2B99F;         /* stronger rule */
+  /* Foreground */
+  --fg: #F1F1F3;             /* primary text */
+  --fg-2: #B4B4BE;           /* secondary */
+  --fg-3: #74747E;           /* muted */
+  --fg-4: #4E4E58;           /* faintest */
 
-  /* Accents — desaturated, printed-ink feel */
-  --brick: #8C3F1D;          /* rust / brick red — the one accent */
-  --brick-2: #A65235;        /* brick hover */
-  --moss: #4E5F3D;           /* deep herbal green — secondary */
-  --gold: #A0803E;           /* aged brass — used sparingly for meta */
+  /* Signature accent — warm coral */
+  --accent: #FF6A3D;
+  --accent-2: #FF8A63;
+  --accent-glow: rgba(255, 106, 61, 0.14);
 
-  /* Signals */
-  --danger: #7A2A1A;
-  --success: #4E5F3D;
+  /* System signal colors */
+  --signal-live: #2FD57D;    /* live green (small use) */
+  --signal-warn: #F4B942;
+  --signal-idle: #74747E;
 
   /* Motion */
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-editorial: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-precise: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
 
-  /* Radii — mostly none. Editorial designs don't round. */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
+  /* Radii — small, precise */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
 
   /* Layout */
   --container-max: 1360px;
-  --gutter-mobile: 24px;
-  --gutter-desktop: 56px;
-  --section-y-mobile: 96px;
-  --section-y-desktop: 160px;
+  --gutter-mobile: 20px;
+  --gutter-desktop: 40px;
+  --section-y-mobile: 80px;
+  --section-y-desktop: 140px;
 }

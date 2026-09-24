@@ -5,9 +5,8 @@ import { LangToggle } from '@/components/ui/LangToggle'
 import { cn } from '@/lib/cn'
 
 /**
- * Editorial masthead. Behaves like the running header on a book page:
- * hairline top, small typographic wordmark, thin nav.
- * No backdrop blur, no shadow, no drama.
+ * OS-panel-style header. Thin, dense, monospace details, no drama.
+ * Reads like the top bar of a tool, not a landing page navbar.
  */
 export function Navbar() {
   const { t } = useLocale()
@@ -21,25 +20,27 @@ export function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur-[2px] border-b border-rule">
-      <Container className="flex items-center justify-between h-14 gap-6">
-        <a href="#top" className="flex items-baseline gap-2 group">
-          <span className="font-serif italic text-lg leading-none text-ink">
-            Eslam
+    <header className="sticky top-0 z-40 bg-bg/70 backdrop-blur-md border-b border-line">
+      <Container className="flex items-center justify-between h-12 gap-6">
+        {/* — Brand (tiny, monospace-precise) — */}
+        <a href="#top" className="flex items-center gap-2 group">
+          <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+          <span className="font-mono text-[13px] text-fg tracking-precise">
+            eslam.ramadan
           </span>
-          <span className="font-serif text-lg leading-none text-ink">
-            Ramadan
-          </span>
+          <span className="cap ml-2 hidden lg:inline">/ studio</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-6">
+        {/* — Nav — */}
+        <nav className="hidden md:flex items-center gap-1">
           {links.map((l) => (
             <a
               key={l.key}
               href={l.href}
               className={cn(
-                'font-mono text-[0.7rem] uppercase tracking-stamp',
-                'text-ink-3 hover:text-ink transition-colors duration-200',
+                'px-2.5 h-7 inline-flex items-center rounded',
+                'font-mono text-[12.5px] text-fg-3 hover:text-fg',
+                'transition-colors duration-150',
               )}
             >
               {t.nav[l.key]}
@@ -47,15 +48,14 @@ export function Navbar() {
           ))}
         </nav>
 
+        {/* — Right — */}
         <div className="flex items-center gap-4">
+          {/* Fake ⌘K search hint — the Rauno detail */}
+          <div className="hidden lg:flex items-center gap-2 h-7 px-2.5 rounded border border-line hover:border-line-2 transition-colors cursor-pointer">
+            <span className="cap text-fg-3">{t.cmd.search}</span>
+            <span className="kbd">⌘K</span>
+          </div>
           <LangToggle />
-          <a
-            href="#contact"
-            className="hidden sm:inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-stamp text-brick hover:text-brick-2 transition-colors"
-          >
-            <span aria-hidden>→</span>
-            {t.nav.start}
-          </a>
         </div>
       </Container>
     </header>

@@ -2,118 +2,130 @@
 import { motion } from 'framer-motion'
 import { useLocale } from '@/i18n/LocaleContext'
 import { Container } from '@/components/ui/Container'
-import { EASE_OUT_EXPO } from '@/lib/motion'
+import { LiveSystemPanel } from './LiveSystemPanel'
+import { cn } from '@/lib/cn'
+
+const EASE = [0.16, 1, 0.3, 1] as const
 
 /**
- * Cover-page treatment. Meant to read as the first spread of a
- * design monograph, not a SaaS landing.
+ * Hero — precision. Left: identity + CTAs. Right: a live-looking
+ * system panel that is the *practice* itself.
  *
- * Motion budget: 2 opacity/translate reveals on load. Nothing else.
+ * Motion budget: one entrance stagger + one pulsing live-dot
+ * (in LiveSystemPanel). Nothing idle bounces.
  */
 export function Hero() {
   const { t } = useLocale()
 
   return (
-    <section id="top" className="border-b border-rule">
-      {/* — Top stamp strip — */}
-      <div className="border-b border-rule">
-        <Container className="grid grid-cols-3 items-center h-11">
-          <span className="stamp">{t.meta.year}</span>
-          <span className="stamp text-center">{t.hero.volume}</span>
-          <span className="stamp text-end">{t.hero.place}</span>
-        </Container>
-      </div>
-
-      {/* — Main cover — */}
-      <Container className="py-20 md:py-32">
-        <div className="grid grid-cols-12 gap-x-6 gap-y-16">
-          {/* Left · massive name */}
+    <section id="top" className="relative border-b border-line">
+      <Container className="pt-16 pb-24 md:pt-24 md:pb-32">
+        <div className="grid grid-cols-12 gap-x-6 gap-y-14 items-start">
+          {/* — Left column · Identity — */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
-            className="col-span-12 lg:col-span-8"
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+            }}
+            className="col-span-12 lg:col-span-7"
           >
-            <p className="idx mb-8">
-              <span className="mr-2 rtl:ml-2 rtl:mr-0">—</span>
-              Digital Business Architect
-            </p>
+            {/* Tag */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+            >
+              <div className="inline-flex items-center gap-2 h-7 px-2.5 rounded-full border border-line-2 mb-8">
+                <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                <span className="cap-fg">{t.hero.tag}</span>
+              </div>
+            </motion.div>
 
-            <h1 className="h-cover text-ink">
+            {/* Name — massive precise sans */}
+            <motion.h1
+              variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }}
+              className="h-display text-fg mb-8"
+            >
               <span className="block">{t.hero.firstName}</span>
               <span className="block">
-                <span className="h-cover-italic text-brick">
-                  {t.hero.lastName}
-                </span>
-                <span className="h-cover-italic text-brick">.</span>
+                {t.hero.lastName}
+                <span className="text-accent">.</span>
               </span>
-            </h1>
+            </motion.h1>
+
+            {/* Subline */}
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+              className="lead mb-10 max-w-xl"
+            >
+              {t.hero.subline}
+            </motion.p>
+
+            {/* CTAs — precision buttons with keyboard hints */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+              className="flex flex-wrap items-center gap-3 mb-10"
+            >
+              <a
+                href="#work"
+                className={cn(
+                  'group inline-flex items-center gap-2 h-10 pl-4 pr-2 rounded-md',
+                  'bg-accent text-bg font-medium text-[13.5px]',
+                  'hover:bg-accent-2 transition-colors duration-150',
+                )}
+              >
+                <span>{t.hero.ctaWork}</span>
+                <span className="kbd border-bg/30 bg-bg/15 text-bg/80">↵</span>
+              </a>
+              <a
+                href="#contact"
+                className={cn(
+                  'group inline-flex items-center gap-2 h-10 px-4 rounded-md',
+                  'border border-line-2 text-fg text-[13.5px]',
+                  'hover:border-fg-3 transition-colors duration-150',
+                )}
+              >
+                <span>{t.hero.ctaContact}</span>
+                <span className="text-fg-3 group-hover:text-fg transition-colors">→</span>
+              </a>
+            </motion.div>
+
+            {/* Meta strip */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } } }}
+              className="flex items-center gap-3"
+            >
+              <div className="h-px w-8 bg-line-2" />
+              <p className="cap">{t.hero.metaLine}</p>
+            </motion.div>
           </motion.div>
 
-          {/* Right · manifesto quote */}
-          <motion.aside
-            initial={{ opacity: 0, y: 14 }}
+          {/* — Right column · Live panel — */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.9,
-              delay: 0.4,
-              ease: EASE_OUT_EXPO,
-            }}
-            className="col-span-12 lg:col-span-4 lg:pt-32"
+            transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
+            className="col-span-12 lg:col-span-5 lg:pl-4"
           >
-            <div className="hairline-2 w-10 mb-5" />
-            <blockquote className="lead-editorial mb-6 [text-wrap:balance]">
-              {t.hero.manifesto}
-            </blockquote>
-            <cite className="stamp not-italic block">
-              — {t.hero.manifestoCite}
-            </cite>
-          </motion.aside>
+            <LiveSystemPanel />
+          </motion.div>
         </div>
       </Container>
 
-      {/* — Contents index — */}
-      <div className="border-t border-rule">
-        <Container className="py-14 md:py-16">
-          <div className="flex items-baseline justify-between mb-8">
-            <p className="stamp">— {t.hero.indexHeading}</p>
-            <p className="stamp text-ink-3 hidden md:block">Fig. 00</p>
+      {/* Footer strip — the OS status bar */}
+      <div className="border-t border-line">
+        <Container className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:h-10 py-2 md:py-0">
+          <div className="flex items-center gap-4">
+            <span className="cap flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-sig-live rounded-full" />
+              open to one project this month
+            </span>
           </div>
-
-          <ol>
-            {t.hero.indexItems.map((item, i) => (
-              <li
-                key={item.href}
-                className="border-t border-rule last:border-b"
-              >
-                <a
-                  href={item.href}
-                  className="group flex items-baseline gap-6 md:gap-10 py-5 md:py-7 hover:bg-paper-2/60 transition-colors duration-200 ease-editorial px-1 -mx-1"
-                >
-                  <span className="idx w-8 flex-none tabular">
-                    {item.num}
-                  </span>
-                  <span className="font-serif text-2xl md:text-4xl leading-tight text-ink transition-colors group-hover:text-brick">
-                    {item.label}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="ml-auto rtl:ml-0 rtl:mr-auto stamp text-ink-3 group-hover:text-brick transition-colors"
-                  >
-                    →
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </div>
-
-      {/* — Bottom stamp strip — */}
-      <div className="border-t border-rule">
-        <Container className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:h-12 py-3 md:py-0">
-          <span className="stamp">{t.hero.stampLeft}</span>
-          <span className="stamp">{t.hero.stampRight}</span>
+          <div className="flex items-center gap-4">
+            <span className="cap text-fg-4">{t.cmd.version}</span>
+            <span className="cap text-fg-4">·</span>
+            <span className="cap text-fg-4">Cairo · Egypt</span>
+          </div>
         </Container>
       </div>
     </section>

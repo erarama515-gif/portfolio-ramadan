@@ -8,17 +8,13 @@ export default function HomePage() {
       <Navbar />
       <Hero />
 
-      {/* Placeholder for the rest — coming in Phase 2 */}
-      <section
-        id="about"
-        aria-hidden
-        className="section-y border-t border-rule"
-      >
+      {/* Phase 2 marker */}
+      <section id="work" aria-hidden className="section-y">
         <Container>
-          <p className="stamp mb-4">— Phase 02 · Next up</p>
-          <p className="prose-editorial">
-            About · What I Build · Selected Work · How I Think · Tech Stack ·
-            Philosophy · Numbers · Process · Contact · Colophon
+          <p className="cap mb-4">— Phase 02 · Next up</p>
+          <p className="prose-precise">
+            Selected Work · How I Think About Systems · What I Build · Tech Stack ·
+            Engineering Philosophy · By the Numbers · Process · Contact · Colophon
           </p>
         </Container>
       </section>

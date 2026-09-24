@@ -10,40 +10,27 @@ export interface Dict {
     start: string
   }
   hero: {
-    volume: string        // "Portfolio · Vol. 01"
-    place: string         // "Cairo · Egypt"
+    tag: string           // "◇ Digital Business Architect"
     firstName: string
     lastName: string
-    manifesto: string     // The italic pull-quote
-    manifestoCite: string // e.g. "— Practice statement"
-    indexHeading: string  // "Contents"
-    indexItems: {
-      label: string
-      href: string
-      num: string
-    }[]
-    stampLeft: string     // "Web · ERP · SaaS · AI · Automation"
-    stampRight: string    // "Est. MMXVIII"
+    subline: string
+    ctaWork: string
+    ctaContact: string
+    metaLine: string      // small mono line under CTAs
   }
-  meta: {
-    year: string          // 'MMXXVI'
+  panel: {
+    title: string
+    liveLabel: string
+    metrics: { label: string; value: string; sub: string }[]
+    logsLabel: string
+    logs: string[]
+  }
+  cmd: {
+    search: string
+    version: string
   }
   langToggle: string
 }
-
-const indexItemsEN = [
-  { num: '01', label: 'Selected Works', href: '#work' },
-  { num: '02', label: 'How I Think About Systems', href: '#systems' },
-  { num: '03', label: 'Process', href: '#process' },
-  { num: '04', label: 'Contact', href: '#contact' },
-]
-
-const indexItemsAR = [
-  { num: '٠١', label: 'الأعمال المختارة', href: '#work' },
-  { num: '٠٢', label: 'كيف أفكّر في الأنظمة', href: '#systems' },
-  { num: '٠٣', label: 'المنهجية', href: '#process' },
-  { num: '٠٤', label: 'تواصل', href: '#contact' },
-]
 
 export const dict: Record<Locale, Dict> = {
   en: {
@@ -56,19 +43,37 @@ export const dict: Record<Locale, Dict> = {
       start: 'Start a project',
     },
     hero: {
-      volume: 'Portfolio · Vol. 01',
-      place: 'Cairo · Egypt',
+      tag: 'Digital Business Architect',
       firstName: 'Eslam',
       lastName: 'Ramadan',
-      manifesto:
-        '“I don’t just build software. I build systems around businesses.”',
-      manifestoCite: 'A practice in digital business architecture.',
-      indexHeading: 'Contents',
-      indexItems: indexItemsEN,
-      stampLeft: 'Web · ERP · SaaS · AI · Automation',
-      stampRight: 'Est. MMXVIII',
+      subline:
+        'I build digital products, business systems and intelligent automations that turn operations into scalable software.',
+      ctaWork: 'View selected work',
+      ctaContact: 'Start a project',
+      metaLine:
+        '300+ projects · 6+ years · Web · ERP · POS · SaaS · AI Automation',
     },
-    meta: { year: 'MMXXVI' },
+    panel: {
+      title: 'eslam.system',
+      liveLabel: 'live',
+      metrics: [
+        { label: 'Projects', value: '300+', sub: 'shipped' },
+        { label: 'Systems', value: '12', sub: 'in production' },
+        { label: 'Automations', value: '47', sub: 'active' },
+        { label: 'Uptime', value: '99.9%', sub: '30d rolling' },
+      ],
+      logsLabel: 'recent activity',
+      logs: [
+        '[kayan-erp] · deployed workflow module v2.4',
+        '[kash-market] · POS sync — 1,204 orders processed',
+        '[almaviva] · 8 workers healthy · queue empty',
+        '[fasah] · dry-run passed · ready to ship',
+      ],
+    },
+    cmd: {
+      search: 'Search or jump to…',
+      version: 'v.2026.01',
+    },
     langToggle: 'AR',
   },
   ar: {
@@ -81,19 +86,37 @@ export const dict: Record<Locale, Dict> = {
       start: 'ابدأ مشروع',
     },
     hero: {
-      volume: 'ملف الأعمال · المجلد الأول',
-      place: 'القاهرة · مصر',
+      tag: 'مهندس أنظمة رقمية للأعمال',
       firstName: 'إسلام',
       lastName: 'رمضان',
-      manifesto:
-        '«أنا لا أكتب برمجيات فقط. أنا أبني أنظمة حول الأعمال.»',
-      manifestoCite: 'مقاربة في هندسة الأعمال الرقمية.',
-      indexHeading: 'المحتويات',
-      indexItems: indexItemsAR,
-      stampLeft: 'Web · ERP · SaaS · AI · Automation',
-      stampRight: 'تأسّست ٢٠١٨',
+      subline:
+        'أبني منتجات رقمية، وأنظمة أعمال، وأتمتة ذكية بتحوّل العمليات لبرمجيات قابلة للتوسّع.',
+      ctaWork: 'اعرض الأعمال المختارة',
+      ctaContact: 'ابدأ مشروع',
+      metaLine:
+        '‎+٣٠٠ مشروع · ‎+٦ سنوات · Web · ERP · POS · SaaS · AI Automation',
     },
-    meta: { year: 'MMXXVI' },
+    panel: {
+      title: 'eslam.system',
+      liveLabel: 'مباشر',
+      metrics: [
+        { label: 'مشروع', value: '‎+٣٠٠', sub: 'شُحن' },
+        { label: 'نظام', value: '١٢', sub: 'قيد التشغيل' },
+        { label: 'أتمتة', value: '٤٧', sub: 'نشط' },
+        { label: 'التوفر', value: '٩٩٫٩٪', sub: 'آخر ٣٠ يوم' },
+      ],
+      logsLabel: 'النشاط الأخير',
+      logs: [
+        '[kayan-erp] · تم نشر مودول سير العمل v٢٫٤',
+        '[kash-market] · مزامنة نقاط البيع — ١٢٠٤ طلب',
+        '[almaviva] · ٨ عاملين شغّالين · القائمة فاضية',
+        '[fasah] · اختبار تجريبي ناجح · جاهز للشحن',
+      ],
+    },
+    cmd: {
+      search: 'ابحث أو انتقل إلى…',
+      version: 'v.2026.01',
+    },
     langToggle: 'EN',
   },
 }

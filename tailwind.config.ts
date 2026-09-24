@@ -9,52 +9,56 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: {
-          DEFAULT: 'var(--paper)',
-          2: 'var(--paper-2)',
-          3: 'var(--paper-3)',
+        bg: 'var(--bg)',
+        surface: {
+          DEFAULT: 'var(--surface)',
+          2: 'var(--surface-2)',
+          3: 'var(--surface-3)',
         },
-        ink: {
-          DEFAULT: 'var(--ink)',
-          2: 'var(--ink-2)',
-          3: 'var(--ink-3)',
+        line: {
+          DEFAULT: 'var(--line)',
+          2: 'var(--line-2)',
+          3: 'var(--line-3)',
         },
-        rule: {
-          DEFAULT: 'var(--rule)',
-          2: 'var(--rule-2)',
+        fg: {
+          DEFAULT: 'var(--fg)',
+          2: 'var(--fg-2)',
+          3: 'var(--fg-3)',
+          4: 'var(--fg-4)',
         },
-        brick: {
-          DEFAULT: 'var(--brick)',
-          2: 'var(--brick-2)',
+        accent: {
+          DEFAULT: 'var(--accent)',
+          2: 'var(--accent-2)',
+          glow: 'var(--accent-glow)',
         },
-        moss: 'var(--moss)',
-        gold: 'var(--gold)',
-        danger: 'var(--danger)',
-        success: 'var(--success)',
+        'sig-live': 'var(--signal-live)',
+        'sig-warn': 'var(--signal-warn)',
+        'sig-idle': 'var(--signal-idle)',
       },
       fontFamily: {
-        serif: ['var(--font-serif)', 'Georgia', 'serif'],
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
         arabic: ['var(--font-arabic)', 'system-ui', 'sans-serif'],
-        arabicSerif: ['var(--font-arabic-serif)', 'Georgia', 'serif'],
       },
       letterSpacing: {
         tightest: '-0.04em',
-        tighter: '-0.025em',
-        editorial: '0.02em',
+        tighter: '-0.028em',
+        precise: '-0.01em',
+        cap: '0.14em',
         stamp: '0.22em',
       },
       maxWidth: {
         container: '1360px',
-        prose: '65ch',
       },
       transitionTimingFunction: {
-        'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',
-        editorial: 'cubic-bezier(0.65, 0, 0.35, 1)',
+        precise: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        snap: 'cubic-bezier(0.2, 0, 0, 1)',
       },
-      fontVariantNumeric: {
-        tabular: 'tabular-nums',
+      boxShadow: {
+        panel:
+          '0 0 0 1px var(--line), 0 1px 0 0 rgba(255,255,255,0.02) inset, 0 30px 60px -20px rgba(0,0,0,0.6)',
+        'accent-ring': '0 0 0 1px var(--accent)',
       },
     },
   },

@@ -10,18 +10,15 @@ export function LangToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-label={locale === 'en' ? 'Switch to Arabic' : 'Switch to English'}
       className={cn(
-        'inline-flex items-center gap-1 font-mono text-[0.7rem] uppercase tracking-stamp',
-        'text-ink-3 hover:text-ink transition-colors',
+        'inline-flex items-center h-7 px-2 gap-1 rounded',
+        'border border-line hover:border-line-2 transition-colors',
+        'font-mono text-[11.5px] tracking-cap uppercase',
         className,
       )}
     >
-      <span className={cn(locale === 'en' ? 'text-ink' : 'text-ink-3')}>
-        EN
-      </span>
-      <span className="text-ink-3">/</span>
-      <span className={cn(locale === 'ar' ? 'text-ink' : 'text-ink-3')}>
-        AR
-      </span>
+      <span className={cn(locale === 'en' ? 'text-fg' : 'text-fg-3')}>EN</span>
+      <span className="text-fg-4">/</span>
+      <span className={cn(locale === 'ar' ? 'text-fg' : 'text-fg-3')}>AR</span>
     </button>
   )
 }
