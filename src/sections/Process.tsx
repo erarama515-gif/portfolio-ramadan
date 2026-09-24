@@ -16,7 +16,7 @@ export function Process() {
   const { process } = t
 
   return (
-    <section className="pb-24 md:pb-32">
+    <section id="process" className="pb-24 md:pb-32">
       <SectionMasthead
         eyebrow={process.eyebrow}
         figure={process.figure}

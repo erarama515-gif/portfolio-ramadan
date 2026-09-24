@@ -16,7 +16,7 @@ export function HowIThink() {
   const { think } = t
 
   return (
-    <section id="process" className="pb-24 md:pb-32">
+    <section id="about" className="pb-24 md:pb-32">
       <SectionMasthead
         eyebrow={think.eyebrow}
         figure={think.figure}
