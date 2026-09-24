@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 interface Node { x: number; y: number; vx: number; vy: number; r: number }
 
-export function NeuralCanvas() {
+export default function NeuralCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {

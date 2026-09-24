@@ -7,7 +7,7 @@ import { getImageUrl } from '@/lib/api'
 
 interface HeroProps { hero: HeroSection; profile: Profile }
 
-export function Hero({ hero, profile }: HeroProps) {
+export default function Hero({ hero, profile }: HeroProps) {
   const [typed, setTyped] = useState('')
   const words = hero.typing_words?.length ? hero.typing_words : ['تعمل وحدها']
   const state = useRef({ wi: 0, ci: 0, del: false })
