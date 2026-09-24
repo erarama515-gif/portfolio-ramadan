@@ -1,5 +1,6 @@
 import { Navbar } from '@/sections/Navbar'
 import { Hero } from '@/sections/Hero'
+import { Container } from '@/components/ui/Container'
 
 export default function HomePage() {
   return (
@@ -7,19 +8,19 @@ export default function HomePage() {
       <Navbar />
       <Hero />
 
-      {/* Placeholder for the rest of the sections — coming in Phase 2+ */}
+      {/* Placeholder for the rest — coming in Phase 2 */}
       <section
         id="about"
         aria-hidden
-        className="section-y border-t border-line"
+        className="section-y border-t border-rule"
       >
-        <div className="container-x">
-          <p className="eyebrow">Next up · Phase 2</p>
-          <p className="text-fg-2 mt-2 font-mono text-sm">
+        <Container>
+          <p className="stamp mb-4">— Phase 02 · Next up</p>
+          <p className="prose-editorial">
             About · What I Build · Selected Work · How I Think · Tech Stack ·
-            Philosophy · Numbers · Process · Contact · Footer
+            Philosophy · Numbers · Process · Contact · Colophon
           </p>
-        </div>
+        </Container>
       </section>
     </main>
   )

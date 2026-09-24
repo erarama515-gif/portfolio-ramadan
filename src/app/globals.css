@@ -4,48 +4,54 @@
 
 @import '../styles/tokens.css';
 
+/* ─── Base ─────────────────────────────────────────────────── */
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background-color: var(--ink);
-    color: var(--fg);
+    background-color: var(--paper);
+    color: var(--ink);
+    font-feature-settings: 'ss01' on, 'ss02' on, 'kern' on, 'liga' on;
   }
 
   body {
-    background-color: var(--ink);
-    color: var(--fg);
-    font-family: var(--font-sans), system-ui, sans-serif;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans), Georgia, serif;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.55;
+    font-weight: 400;
   }
 
   ::selection {
-    background: var(--copper);
-    color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
-  ::-webkit-scrollbar-track {
-    background: var(--ink);
-  }
+  ::-webkit-scrollbar-track { background: var(--paper); }
   ::-webkit-scrollbar-thumb {
-    background: var(--line-2);
-    border-radius: 4px;
+    background: var(--rule-2);
+    border: 2px solid var(--paper);
+    border-radius: 6px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--copper);
-  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
 
   :root[dir='rtl'] body {
     font-family: var(--font-arabic), system-ui, sans-serif;
   }
+
+  /* Give figures/tables tabular numerals so aligned columns look tuned */
+  .tabular, table, [data-tabular] {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
+/* ─── Utilities ────────────────────────────────────────────── */
 @layer utilities {
   .container-x {
     width: 100%;
@@ -54,59 +60,117 @@
     padding-inline: var(--gutter-mobile);
   }
   @media (min-width: 768px) {
-    .container-x {
-      padding-inline: var(--gutter-desktop);
-    }
+    .container-x { padding-inline: var(--gutter-desktop); }
   }
 
   .section-y {
     padding-block: var(--section-y-mobile);
   }
   @media (min-width: 768px) {
-    .section-y {
-      padding-block: var(--section-y-desktop);
-    }
+    .section-y { padding-block: var(--section-y-desktop); }
   }
 
-  .eyebrow {
+  /* ── Editorial type primitives ── */
+
+  /* Stamp: monospace uppercase mini-caps for meta lines */
+  .stamp {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  :root[dir='rtl'] .stamp {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* Rule numbering (01, 02, …) — inline like footnote refs */
+  .idx {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.75rem;
     letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--fg-3);
+    color: var(--brick);
+    font-variant-numeric: tabular-nums;
   }
 
-  .h1-display {
-    font-family: var(--font-display), system-ui, sans-serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    line-height: 0.95;
+  /* Editorial serif display — the name treatment */
+  .h-cover {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(4rem, 12vw, 12rem);
+    line-height: 0.86;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+  }
+  :root[dir='rtl'] .h-cover {
+    font-family: var(--font-arabic-serif), Georgia, serif;
+    letter-spacing: 0;
+    line-height: 0.9;
+  }
+
+  /* Editorial italic — used for the surname */
+  .h-cover-italic {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
     letter-spacing: -0.03em;
-    font-weight: 300;
+  }
+  :root[dir='rtl'] .h-cover-italic {
+    font-family: var(--font-arabic-serif), Georgia, serif;
+    font-style: normal;
   }
 
-  .h2-display {
-    font-family: var(--font-display), system-ui, sans-serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-weight: 500;
+  /* Section title — smaller editorial serif */
+  .h-section {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  :root[dir='rtl'] .h-section {
+    font-family: var(--font-arabic-serif), Georgia, serif;
   }
 
-  .lead {
-    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-    line-height: 1.55;
-    color: var(--fg-2);
+  /* Body prose */
+  .prose-editorial {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 65ch;
+  }
+  .prose-editorial > p + p { margin-top: 1.25em; }
+
+  /* Manifesto: pull-quote scale for hero secondary text */
+  .lead-editorial {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  :root[dir='rtl'] .lead-editorial {
+    font-family: var(--font-arabic-serif), Georgia, serif;
+    font-style: normal;
   }
 
-  .noise::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 100;
-    opacity: 0.035;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Hairline dividers */
+  .hairline {
+    height: 1px;
+    background: var(--rule);
+    border: 0;
+  }
+  .hairline-2 {
+    height: 1px;
+    background: var(--rule-2);
+    border: 0;
+  }
+  /* True 0.5px on retina */
+  @media (min-resolution: 2dppx) {
+    .hairline { height: 0.5px; }
+    .hairline-2 { height: 0.5px; }
   }
 }
 
