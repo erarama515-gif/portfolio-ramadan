@@ -1,4 +1,6 @@
-// Auto-generated import map for Payload admin — regenerated via
-// `npx payload generate:importmap`. Kept minimal for now; the CLI
-// will overwrite this file whenever custom components are added.
-export const importMap = {}
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+
+/** @type import('payload').ImportMap */
+export const importMap = {
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+}
