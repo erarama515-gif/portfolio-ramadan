@@ -5,6 +5,8 @@ import { Container } from '@/components/ui/Container'
 import { SectionMasthead } from '@/components/ui/SectionMasthead'
 import { cn } from '@/lib/cn'
 
+type FormState = 'idle' | 'sending' | 'sent' | 'error'
+
 /**
  * Contact — editorial framing. Title on top, then a two-column
  * layout: left is a manifesto CTA + email; right is a compact form.
@@ -14,7 +16,30 @@ import { cn } from '@/lib/cn'
 export function Contact() {
   const { t } = useLocale()
   const { contact } = t
-  const [sent, setSent] = useState(false)
+  const [state, setState] = useState<FormState>('idle')
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (state === 'sending' || state === 'sent') return
+    setState('sending')
+    setErrorMsg(null)
+    const fd = new FormData(e.currentTarget)
+    const payload = Object.fromEntries(fd)
+    try {
+      const res = await fetch('/api/contactMessages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error(`server responded ${res.status}`)
+      setState('sent')
+    } catch (err) {
+      setState('error')
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong.')
+    }
+  }
+  const sent = state === 'sent'
 
   return (
     <section id="contact" className="pb-24 md:pb-32">
@@ -56,10 +81,7 @@ export function Contact() {
 
           {/* Right · form */}
           <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              setSent(true)
-            }}
+            onSubmit={submit}
             className="col-span-12 lg:col-span-7 grid grid-cols-2 gap-x-4 gap-y-6 lg:pl-10 lg:border-l lg:border-line lg:rtl:border-l-0 lg:rtl:border-r lg:rtl:pl-0 lg:rtl:pr-10"
           >
             <FieldGroup label="Name" name="name" />
@@ -70,7 +92,7 @@ export function Contact() {
             <div className="col-span-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-2">
               <button
                 type="submit"
-                disabled={sent}
+                disabled={state === 'sending' || state === 'sent'}
                 className={cn(
                   'group inline-flex items-center gap-2 h-10 pl-4 pr-2 rounded-md',
                   'bg-accent text-bg font-medium text-[13.5px]',
@@ -78,15 +100,25 @@ export function Contact() {
                   'disabled:opacity-70 disabled:cursor-not-allowed',
                 )}
               >
-                <span>{sent ? '✓  Sent — I’ll reply within 24h' : contact.cta}</span>
-                {!sent && (
+                <span>
+                  {state === 'sending' && 'Sending…'}
+                  {state === 'sent' && '✓  Sent — I’ll reply within 24h'}
+                  {(state === 'idle' || state === 'error') && contact.cta}
+                </span>
+                {state !== 'sending' && state !== 'sent' && (
                   <span className="kbd border-bg/30 bg-bg/15 text-bg/80">↵</span>
                 )}
               </button>
 
               <span className="cap text-fg-4">
-                or press <span className="kbd">⌘</span>
-                <span className="kbd">↵</span> to send
+                {state === 'error' && errorMsg
+                  ? `— ${errorMsg}`
+                  : (
+                    <>
+                      or press <span className="kbd">⌘</span>
+                      <span className="kbd">↵</span> to send
+                    </>
+                  )}
               </span>
             </div>
           </form>

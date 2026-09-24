@@ -116,7 +116,6 @@ async function seed() {
   })
 
   // — Domains collection —
-  for (const d of dict.en.domains ?? []) { /* domains live under build, not top-level */ }
   const enDomains = dict.en.build.domains
   const arDomains = dict.ar.build.domains
   for (let i = 0; i < enDomains.length; i++) {

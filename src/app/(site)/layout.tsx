@@ -6,7 +6,11 @@ import {
   IBM_Plex_Sans_Arabic,
   Amiri,
 } from 'next/font/google'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 import { LocaleProvider } from '@/i18n/LocaleContext'
+import { ContentProvider } from '@/i18n/ContentContext'
+import { loadAllContent } from '@/lib/content-loader'
 import '../globals.css'
 
 const serif = Instrument_Serif({
@@ -31,28 +35,58 @@ const arabicSerif = Amiri({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
+const FALLBACK_META = {
   title: 'Eslam Ramadan — Digital Business Architect',
   description:
     'From business problems to digital systems. ERP · CRM · POS · SaaS · AI Automation.',
-  metadataBase: new URL('https://ramadan.dev'),
-  openGraph: {
-    type: 'website',
-    title: 'Eslam Ramadan — Digital Business Architect',
-    description:
-      'From business problems to digital systems.',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Eslam Ramadan — Digital Business Architect',
-  },
+  keywords:
+    'Eslam Ramadan, portfolio, digital business, ERP, POS, SaaS, automation',
 }
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  let title = FALLBACK_META.title
+  let description = FALLBACK_META.description
+  let keywords = FALLBACK_META.keywords
+
+  try {
+    const payload = await getPayload({ config })
+    const settings = (await payload
+      .findGlobal({ slug: 'settings', locale: 'en' })
+      .catch(() => null)) as any
+    if (settings?.siteTitle) title = settings.siteTitle
+    if (settings?.siteDescription) description = settings.siteDescription
+    if (settings?.keywords) keywords = settings.keywords
+  } catch {
+    // fall through to defaults
+  }
+
+  const url = process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000'
+
+  return {
+    title,
+    description,
+    keywords,
+    metadataBase: new URL(url),
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  }
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const content = await loadAllContent()
+
   return (
     <html
       lang="en"
@@ -61,7 +95,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-bg text-fg antialiased selection:bg-accent selection:text-bg">
-        <LocaleProvider>{children}</LocaleProvider>
+        <LocaleProvider>
+          <ContentProvider content={content}>{children}</ContentProvider>
+        </LocaleProvider>
       </body>
     </html>
   )

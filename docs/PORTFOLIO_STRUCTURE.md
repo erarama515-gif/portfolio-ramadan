@@ -822,3 +822,32 @@ Note: the repo previously had a two-folder split (`frontend/` + `backend/`). Pha
 
 Phase 2 (Hero + About + Navbar) follows immediately after Phase 1 is reviewed.
 
+---
+
+## 10 · Build log (2026-09-24)
+
+The entire plan above was executed on a single working day. Every
+phase shipped to `claude/wizardly-johnson-qamh3s` on GitHub.
+
+| Phase | Deliverable | Commit prefix |
+|---|---|---|
+| 1.1 | Restructure repo, archive FastAPI backend | `7f7148d` |
+| 1.2 | Next.js scaffold, design tokens, base primitives | `90d3300` |
+| 1.3 | Editorial Ink pass (deprecated in favor of blend) | `ec8ea29` |
+| 1.4 | Rauno × Linear precision pass | `114f049` |
+| 1.5 | Precision Warmth · final blend of 8 references | `bc06101` |
+| 2   | Selected Work + What I Build | `6b7ee79` |
+| 3   | How I Think + Process + Numbers + Contact + Footer | `8649fce`, `2f06da3` |
+| 4   | Case-study pages `/work/[slug]` for all 5 projects | `73450b8` |
+| 5.1 | Payload CMS scaffold + collections + globals | `4d9dc23` |
+| 5.2 | Payload live, seeded, admin working | `dcba400` |
+| 5.3 | Site + case studies read from Payload with fallback | (pending) |
+| 6   | Contact form persists to `contactMessages` collection | (pending) |
+| 7   | Dynamic SEO metadata from Payload Settings | (pending) |
+
+The visual direction converged after three iterations: an initial
+"dark cyber" attempt (rejected as generic), an editorial ink pass
+(rejected as the new template), and finally the current Rauno ×
+Linear × Stripe × Anthropic blend documented in §9.
+
+

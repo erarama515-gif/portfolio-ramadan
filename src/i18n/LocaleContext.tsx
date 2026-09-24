@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { dict, type Locale, type Dict } from './dictionaries'
+import { useContentOverride } from './ContentContext'
 
 interface LocaleContextValue {
   locale: Locale
@@ -9,7 +10,7 @@ interface LocaleContextValue {
   toggle: () => void
 }
 
-const LocaleContext = createContext<LocaleContextValue | null>(null)
+const LocaleContext = createContext<Omit<LocaleContextValue, 't'> | null>(null)
 
 const STORAGE_KEY = 'er.locale'
 
@@ -36,14 +37,16 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const toggle = () => setLocaleState((l) => (l === 'en' ? 'ar' : 'en'))
 
   return (
-    <LocaleContext.Provider value={{ locale, t: dict[locale], setLocale, toggle }}>
+    <LocaleContext.Provider value={{ locale, setLocale, toggle }}>
       {children}
     </LocaleContext.Provider>
   )
 }
 
-export function useLocale() {
+export function useLocale(): LocaleContextValue {
   const ctx = useContext(LocaleContext)
+  const override = useContentOverride()
   if (!ctx) throw new Error('useLocale must be used inside LocaleProvider')
-  return ctx
+  const t = override ? override[ctx.locale] : dict[ctx.locale]
+  return { ...ctx, t }
 }
