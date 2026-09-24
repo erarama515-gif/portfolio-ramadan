@@ -110,6 +110,16 @@ export interface Dict {
     domains: string
     copy: string
   }
+  caseStudy: {
+    backLabel: string
+    challenge: string
+    approach: string
+    system: string
+    features: string
+    tech: string
+    results: string
+    nextCta: string
+  }
   langToggle: string
 }
 
@@ -363,6 +373,16 @@ export const dict: Record<Locale, Dict> = {
       domains: 'Web · ERP · SaaS · AI · Automation',
       copy: '© 2026 Eslam Ramadan · All rights reserved',
     },
+    caseStudy: {
+      backLabel: 'Back to selected work',
+      challenge: 'The Challenge',
+      approach: 'The Approach',
+      system: 'The System',
+      features: 'Key Features',
+      tech: 'Technology',
+      results: 'Results',
+      nextCta: 'Next case study',
+    },
     langToggle: 'AR',
   },
   ar: {
@@ -489,6 +509,16 @@ export const dict: Record<Locale, Dict> = {
       role: 'مهندس أنظمة رقمية للأعمال',
       domains: 'Web · ERP · SaaS · AI · Automation',
       copy: '© ٢٠٢٦ إسلام رمضان · جميع الحقوق محفوظة',
+    },
+    caseStudy: {
+      backLabel: 'العودة للأعمال المختارة',
+      challenge: 'التحدّي',
+      approach: 'المقاربة',
+      system: 'النظام',
+      features: 'المميّزات الأساسية',
+      tech: 'التقنيات',
+      results: 'النتائج',
+      nextCta: 'دراسة الحالة التالية',
     },
     langToggle: 'EN',
   },
